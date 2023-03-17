@@ -1,0 +1,33 @@
+package com.example.hustleaid;
+
+public class ExerciseDataModel {
+    String exerciseName;
+    String exerciseType;
+    String exerciseDifficulty;
+
+    String exerciseDescription;
+
+
+    public ExerciseDataModel(String exerciseName, String exerciseType, String exerciseDifficulty, String exerciseDescription) {
+        this.exerciseName = exerciseName;
+        this.exerciseType = exerciseType;
+        this.exerciseDifficulty = exerciseDifficulty;
+        this.exerciseDescription = exerciseDescription;
+    }
+
+    public String getExerciseName() {
+        return exerciseName;
+    }
+
+    public String getExerciseType() {
+        return exerciseType;
+    }
+
+    public String getExerciseDifficulty() {
+        return exerciseDifficulty;
+    }
+
+    public String getExerciseDescription(){
+        return exerciseDescription;
+    }
+}
