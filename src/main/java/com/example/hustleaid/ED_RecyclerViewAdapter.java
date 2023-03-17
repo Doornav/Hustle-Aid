@@ -1,0 +1,73 @@
+package com.example.hustleaid;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+public class ED_RecyclerViewAdapter extends RecyclerView.Adapter<ED_RecyclerViewAdapter.MyViewHolder> {
+
+    private final RecyclerViewInterface recyclerViewInterface;
+    Context context;
+    ArrayList<ExerciseDataModel> exerciseDataModels;
+
+    public ED_RecyclerViewAdapter(Context context, ArrayList<ExerciseDataModel> exerciseDataModels, RecyclerViewInterface recyclerViewInterface){
+        this.context = context;
+        this.exerciseDataModels = exerciseDataModels;
+        this.recyclerViewInterface = recyclerViewInterface;
+    }
+
+    @NonNull
+    @Override
+    public ED_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.recycler_view_row, parent, false);
+        return new ED_RecyclerViewAdapter.MyViewHolder(view, recyclerViewInterface);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ED_RecyclerViewAdapter.MyViewHolder holder, int position) {
+
+        holder.textViewExerciseNames.setText(exerciseDataModels.get(position).getExerciseName());
+        holder.textViewExerciseType.setText(exerciseDataModels.get(position).getExerciseType());
+        holder.textViewExerciseDifficulty.setText(exerciseDataModels.get(position).getExerciseDifficulty());
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return exerciseDataModels.size();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+
+        TextView textViewExerciseNames, textViewExerciseType, textViewExerciseDifficulty;
+
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
+            super(itemView);
+            textViewExerciseNames = itemView.findViewById(R.id.textViewExerciseName);
+            textViewExerciseType = itemView.findViewById(R.id.textViewExerciseType);
+            textViewExerciseDifficulty = itemView.findViewById(R.id.textViewExerciseDifficulty);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (recyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+
+                        if (pos!= RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
+        }
+    }
+}
